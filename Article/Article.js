@@ -112,3 +112,60 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
 
 */
+
+class Newsfeed {
+  constructor(article) {
+    this.article = article; 
+    // create newsfeed div
+    this.articleSection = document.querySelector('.articles');
+    this.createArticle();
+
+    //select all the expand buttons and add event listeners to them
+    this.expandButton = document.querySelectorAll('.expandButton');
+    this.expandButton.forEach(button => button.addEventListener('click', this.expandArticle.bind(this))) 
+  }
+
+  // Two methods: 1 to create the article, 1 to expand
+  // CreateArticle() does 3 things: 1- createElement each element, 2- classList.add their classes, 3- loops through data object to add content to the newly created elements. 
+  //? Should createArticle() be separated into two methods, 1 to createlElement and classList.add, and one to loop through data object?
+  createArticle() {
+    // create article elements
+    
+    this.newArticle = document.createElement('div');
+    this.newArticle.classList.add('article');
+    this.articleSection.appendChild(this.newArticle);
+    this.articleHeader = document.createElement('h2');
+    console.log('article header:', this.articleHeader)
+    this.newArticle.appendChild(this.articleHeader);
+    this.articleDate = document.createElement('p');
+    this.articleDate.classList.add('date');
+    this.newArticle.appendChild(this.articleDate);
+    this.para1 = document.createElement('p'); //? is there a loop to create as many p elements as we need rather than list each one out? What if one article has more than three paragraphs?
+    this.newArticle.appendChild(this.para1);
+    this.para2 = document.createElement('p');
+    this.newArticle.appendChild(this.para2);
+    this.para3 = document.createElement('p');
+    this.newArticle.appendChild(this.para3);
+    this.expandButton = document.createElement('span');
+    this.expandButton.classList.add('expandButton');
+    this.newArticle.appendChild(this.expandButton);
+
+    this.article.map(() => {
+      this.articleHeader.textContent = this.article.title;
+      // console.log("title:", this.article.title);
+      this.articleDate.textContent = this.article.date;
+      this.para1.textContent = this.article.firstParagraph;
+      this.para2.textContent = this.article.secondParagraph;
+      this.para3.textContent = this.article.thirdParagraph;
+      this.expandButton.textContent = "Open";
+    })
+  }
+
+  expandArticle() {
+    this.newArticle.classList.toggle('article-open');
+    console.log(this.expandButton.textContent)
+  }
+};
+
+data.map(()=> new Newsfeed(data));
+
