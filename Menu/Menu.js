@@ -37,6 +37,8 @@ let menuItems = [
 function menu(navArray) {
   let menuWrapper = document.createElement('div');
   menuWrapper.classList.add('menu');
+  let header = document.querySelector('div.header');
+  header.appendChild(menuWrapper);
   let navList = document.createElement('ul');
   menuWrapper.appendChild(navList);
 

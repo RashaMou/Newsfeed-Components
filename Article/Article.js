@@ -124,7 +124,6 @@ class Newsfeed {
     this.expandButton = document.querySelectorAll('.expandButton');
     this.expandButton.forEach(button => button.addEventListener('click', this.expandArticle.bind(this))) 
   }
-
   // Two methods: 1 to create the article, 1 to expand
   // CreateArticle() does 3 things: 1- createElement each element, 2- classList.add their classes, 3- loops through data object to add content to the newly created elements. 
   //? Should createArticle() be separated into two methods, 1 to createlElement and classList.add, and one to loop through data object?
@@ -150,7 +149,6 @@ class Newsfeed {
     this.expandButton.classList.add('expandButton');
     this.newArticle.appendChild(this.expandButton);
 
-    this.article.map(() => {
       this.articleHeader.textContent = this.article.title;
       // console.log("title:", this.article.title);
       this.articleDate.textContent = this.article.date;
@@ -158,14 +156,12 @@ class Newsfeed {
       this.para2.textContent = this.article.secondParagraph;
       this.para3.textContent = this.article.thirdParagraph;
       this.expandButton.textContent = "Open";
-    })
-  }
+    }
 
   expandArticle() {
     this.newArticle.classList.toggle('article-open');
     console.log(this.expandButton.textContent)
   }
-};
-
-data.map(()=> new Newsfeed(data));
+}
+data.forEach((article) => new Newsfeed(article));
 
